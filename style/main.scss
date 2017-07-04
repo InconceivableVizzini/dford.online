@@ -1,0 +1,403 @@
+/**
+* Typography configuration
+*
+* Perfect Fourth, double stranded scale.
+* 1,1.5@11px
+* 1.333
+*
+* -2 = 8.25209px
+* 1 = 11px
+* 3 = 16.5px
+* 7 = 29px
+*/
+
+@font-face {
+  font-family: dbld;
+  src: url(/assets/font/dbld.otf) format("opentype");
+}
+
+$family-serif: 'Times New Roman', serif;
+$family-sans-serif: 'Noto Sans', sans-serif;
+$family-primary: $family-sans-serif;
+$family-primary-baseline: 0.112061;
+$family-secondary: $family-serif;
+$family-secondary-baseline: 0.162598;
+$family-tertiary: 'dbld', sans-serif;
+$family-tertiary-baseline: 0.096;
+
+@import "node_modules/bulma/bulma";
+@import "node_modules/plumber-sass/plumber";
+@import "node_modules/modularscale-sass/stylesheets/modularscale";
+
+// Remove units of length.
+@function uless($n){ @return ($n / ($n * 0 + 1)); }
+
+@include plumber-set-defaults(
+  $grid-height: 1rem,
+  $baseline: $family-primary-baseline,
+  $font-size: uless(ms(0)),
+  $line-height: 2,
+  $leading-top: 0,
+  $leading-bottom: 0
+);
+
+$modularscale: (
+  base: 1em 1.5em,
+  ratio: 1.333
+);
+
+/**
+* Primary layout
+*/
+html,body {
+  background: #f1f1f1;
+  color: #363636;
+  height: 100%; /**
+                * Avoid `min-height` bugs.
+		*/
+}
+body {
+  font-size: 11px;
+  padding: .15in .35in;
+
+  display: flex;
+  flex-direction: column;
+}
+hr {
+  @include plumber(
+    $leading-top: 3,
+    $leading-bottom: 2
+  );
+  background: none;
+  border-top: 1px solid #ccc;
+}
+p {
+  @include plumber();
+}
+nav {
+  flex: none;
+  height: 3rem;
+}
+main {
+  flex: 1;
+}
+main::after {
+  content: '\00a0';
+  display: block;
+}
+footer {
+  flex: none;
+  clear: both;
+  height: 3rem;
+
+  p {
+    @include plumber(
+      $line-height: 1,
+      $leading-top: 0
+    );
+  }
+}
+
+// Spread things vertically when on
+// a small screen.
+@media screen and (max-width: 768px) {
+  body > .container {
+    margin-bottom: 1.5rem;
+  }
+}
+
+
+.is-primary-column {
+  padding: 0 0 .75rem 0;
+}
+
+.is-tilted {
+  transform: rotate(58deg);
+}
+
+.has-top-indent-6 {
+  padding-top: 6rem;
+}
+
+.has-visible-grid {
+  background-image: linear-gradient(to bottom, cyan 0, rgba(255,255,255,0) 1px);
+  background-repeat: repeat-y;
+  background-size: 100% 1rem;
+}
+
+.has-pointer-cursor {
+  cursor: pointer;
+}
+
+/**
+* Citations
+*/
+.citation {
+  @include plumber(
+    $line-height: 1,
+    $leading-bottom: 0
+  );
+
+  font-size: ms(-2);
+  text-transform: uppercase;
+  a {
+    text-decoration: underline;
+  }
+}
+
+/**
+* Navigation
+*/
+body > nav {
+  padding-top: 2px; // Avoid a baseline bug
+}
+nav div.nav {
+  background-color: inherit;
+}
+div.nav.primary-nav {
+  height: 3rem;
+}
+nav div.nav.primary-nav .nav-right {
+  font-family: $family-secondary;
+  letter-spacing: 6px;
+  overflow: hidden;
+}
+
+nav div.nav.primary-nav .nav-right .nav-item {
+  @include plumber(
+    $baseline: $family-secondary-baseline,
+    $line-height: 1,
+    $leading-top: 0,
+    $leading-bottom: 0
+  );
+  margin-bottom: initial; // Avoid a clipping bug.
+  font-size: ms(3);
+}
+
+nav div.nav.primary-nav .nav-left a:first-child {
+  @include plumber(
+    $baseline: $family-tertiary-baseline,
+    $line-height: 2,
+    $leading-top: 0,
+    $leading-bottom: 0
+  );
+
+  font-size: ms(7);
+  font-family: $family-tertiary;
+  padding-left: 0;
+  text-transform: uppercase;
+  transform: translateX(-2px);
+}
+
+nav div.nav.primary-nav .nav-right a:last-child {
+  padding-right: 0;
+}
+
+@media screen and (max-width: 768px) {  
+  nav div.nav.primary-nav {
+    display: inline-block;
+
+    .nav-right a:first-child {
+      padding-left: 0;
+    }
+  }
+}
+
+/**
+* Experiment tiles
+*/
+
+// Allow tiles to remain 16:9
+// even on small screens.
+.tile { display: flex; }
+
+@keyframes experiment-hero-background {
+  from { background-position: 0 0; }
+  to { background-position: 0 -2000px; }
+}
+.experiment-hero {
+  position: relative;
+  margin: 0 1rem 1rem 0;
+
+  // 16:9 aspect ratio
+  &::after {
+    content: "\20";
+    padding-top: 56.25%;
+  }
+  .content:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+  .content {
+    padding: 25% 25%;
+    text-align: center;
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow: hidden;
+    background-color: rgba(106,106,106,0.3);
+    opacity: 0;
+    transition: opacity 0.25s ease-in-out;
+  }
+  .background {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow: hidden;
+  }
+}
+.is-pinhole-active {
+  background-image: url(/assets/img/starfield.png);
+  background-position: 0px 0px;
+  background-repeat: repeat;
+  animation: experiment-hero-background 70s linear infinite;
+}
+.pinhole-hero .background {
+  &::after {
+    display: block;
+    content: "\20";
+    background-image: url(/assets/img/starfield.png);
+    background-position: 0px 0px;
+    background-repeat: repeat;
+    animation: experiment-hero-background 60s linear infinite;
+    animation-fill-mode: both;
+    backface-visibility: hidden;
+    perspective: 1000px;
+    width: 2000px;
+    height: 3000px;
+  }
+}
+
+.visualizer-hero {
+  .content { color: #646464; }
+
+  .background {
+    &::after {
+      display: block;
+      content: "\20";
+      background-image: url(/assets/img/strapyourselfin.png);
+      height: 100%;
+    }
+  }
+}
+
+/**
+* Audio Visualizer
+*/
+#audio-vidio-support { display: none; }
+.ap-button {
+  position: absolute;
+  display: inline-block;
+  width: 43px;
+  height: 43px;
+  //border: 3px solid #f1f1f1; //#131313;
+  //border-radius: 50%;
+  transition: opacity 0.4s ease-in-out;
+  opacity: 1.0;
+
+  &.is-play {
+    opacity: 1.0;
+  }
+  &.is-pause {
+    opacity: 0.0;
+  }
+
+  .circle {
+    stroke: #f1f1f1;
+    stroke-dasharray: 650;
+    stroke-dashoffset: 650;
+    transition: all 0.4s ease-in-out;
+    opacity: 0.3;
+  }
+  .triangle {
+    stroke-dasharray: 240;
+    stroke-dashoffset: 480;
+    stroke: #f1f1f1;
+    transition: all 0.7s ease-in-out;
+    transform: translateY(0);
+  }
+
+  &:hover {
+    .circle {
+      stroke-dashoffset: 0;
+      opacity: 0.8;
+    }
+    .triangle {
+      stroke-dashoffset: 0;
+      opacity: 0.8;
+      //stroke: #f8aa28;
+      animation: x-wobble 0.7s ease-in-out;
+
+      @keyframes x-wobble {
+        0%   { transform: translateX(0); }
+	30%  { transform: translateX(-5x); }
+	50%  { transform: translateX(5px); }
+	70%  { transform: translateX(-2px); }
+	100% { transform: translateX(0); }
+      }
+    }
+  }
+
+/*
+  &::before,
+  &::after {
+    content: "\20";
+    display: inline-block;
+    position: absolute;
+    top: 8.5px;
+    left: -1.5px;
+    width: 3px;
+    height: 20px;
+    border-radius: 3px;
+    background-color: #f1f1f1;
+    transform-origin: center;
+    transition: transform 0.4s ease-in-out;
+  }
+
+  &.is-play::before {
+    transform: translateX(20px) translateY(-5px) rotate(-55deg);
+  }
+  &.is-play::after {
+    transform: translateX(20px) translateY(5px) rotate(-125deg);
+  }
+  &.is-pause::before {
+    transform: translateX(13.5px) translateY(0px) rotate(0deg);
+  }
+  &.is-pause::after {
+    transform: translateX(24px) translateY(0px) rotate(0deg);
+  }
+  */
+}
+
+[data-is="visualizer"] > div > div {
+  width: 100%;
+}
+[data-is="visualizer"] > div > div > div {
+  cursor: pointer;
+}
+[data-is="visualizer"] > div > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/**
+* Pinhole
+*/
+[data-is="pinhole"] {
+  > div.column {
+    @include plumber(
+      $leading-top: 2,
+      $leading-bottom: 0
+    );
+  }
+  .media .media-content {
+    flex-grow: initial;
+  }
+}
