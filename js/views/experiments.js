@@ -28,10 +28,6 @@ riot.tag('experiments',
       </div>
     </div>	 
   </div>
-
-
-
-
   `,
 
   function (opts) {
