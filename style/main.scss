@@ -57,7 +57,7 @@ html,body {
 		*/
 }
 body {
-  font-size: 11px;
+  font-size: 11px; // 1rem.
   padding: .15in .35in;
 
   display: flex;
@@ -98,11 +98,18 @@ footer {
   }
 }
 
-// Spread things vertically when on
-// a small screen.
 @media screen and (max-width: 768px) {
   body > .container {
     margin-bottom: 1.5rem;
+  }
+  [data-is="experiments"] > div > div {
+    flex-direction: column;
+    .tile.is-left-triplet { margin: 0 0 1.5rem; }
+  }
+}
+@media screen and (min-width: 769px) {
+  nav div.nav.primary-nav .nav-right a.nav-item {
+    margin-bottom: -1rem;
   }
 }
 
@@ -113,6 +120,16 @@ footer {
 
 .is-tilted {
   transform: rotate(58deg);
+}
+
+.tile.is-left-triplet {
+  margin: 0 1.5rem 1.5rem 0;
+  padding: 0;
+}
+
+.tile.is-right-triplet {
+  margin: 0 0 1.5rem 0;
+  padding: 0;
 }
 
 .has-top-indent-6 {
@@ -211,10 +228,6 @@ nav div.nav.primary-nav .nav-right a:last-child {
 // even on small screens.
 .tile { display: flex; }
 
-@keyframes experiment-hero-background {
-  from { background-position: 0 0; }
-  to { background-position: 0 -2000px; }
-}
 .experiment-hero {
   position: relative;
   margin: 0 1rem 1rem 0;
@@ -227,8 +240,13 @@ nav div.nav.primary-nav .nav-right a:last-child {
   .content:hover {
     opacity: 1;
     cursor: pointer;
+    color: #363636;
+    text-shadow: 0px 0.5px 0.5px rgba(222, 222, 222, .2);
   }
   .content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 25% 25%;
     text-align: center;
     z-index: 2;
@@ -238,7 +256,7 @@ nav div.nav.primary-nav .nav-right a:last-child {
     bottom: 0;
     right: 0;
     overflow: hidden;
-    background-color: rgba(106,106,106,0.3);
+    background-color: rgba(106,106,106,0.9);
     opacity: 0;
     transition: opacity 0.25s ease-in-out;
   }
@@ -250,8 +268,20 @@ nav div.nav.primary-nav .nav-right a:last-child {
     bottom: 0;
     right: 0;
     overflow: hidden;
+
+    &::after {
+      display: block;
+      content: "\20";
+      height: 100%;
+    }
   }
 }
+
+@keyframes experiment-hero-background {
+  from { background-position: 0 0; }
+  to { background-position: 0 -2000px; }
+}
+
 .is-pinhole-active {
   background-image: url(/assets/img/starfield.png);
   background-position: 0px 0px;
@@ -260,8 +290,6 @@ nav div.nav.primary-nav .nav-right a:last-child {
 }
 .pinhole-hero .background {
   &::after {
-    display: block;
-    content: "\20";
     background-image: url(/assets/img/starfield.png);
     background-position: 0px 0px;
     background-repeat: repeat;
@@ -274,15 +302,24 @@ nav div.nav.primary-nav .nav-right a:last-child {
   }
 }
 
-.visualizer-hero {
-  .content { color: #646464; }
+.digital-painting {
+  @include plumber(
+    $line-height: 1,
+    $leading-bottom: 1
+  );
+}
 
+.matte-painting-rv-hero .background {
+  &::after {
+    background-image: url(/assets/img/matte-painting-river-valley.png);
+    background-size: cover;
+  }
+}
+
+.visualizer-hero {
   .background {
     &::after {
-      display: block;
-      content: "\20";
       background-image: url(/assets/img/strapyourselfin.png);
-      height: 100%;
     }
   }
 }
@@ -296,8 +333,6 @@ nav div.nav.primary-nav .nav-right a:last-child {
   display: inline-block;
   width: 43px;
   height: 43px;
-  //border: 3px solid #f1f1f1; //#131313;
-  //border-radius: 50%;
   transition: opacity 0.4s ease-in-out;
   opacity: 1.0;
 
@@ -331,7 +366,6 @@ nav div.nav.primary-nav .nav-right a:last-child {
     .triangle {
       stroke-dashoffset: 0;
       opacity: 0.8;
-      //stroke: #f8aa28;
       animation: x-wobble 0.7s ease-in-out;
 
       @keyframes x-wobble {
