@@ -30,7 +30,7 @@ class AudioVisualizer {
 						     leFragmentShader,
 						     leUniforms);
 
-    this.background = PIXI.Sprite.fromImage("http://www.goodboydigital.com/pixijs/pixi_v3_github-pad.png", true);
+    this.background = PIXI.Sprite.fromImage("/assets/img/strapyourselfin.png", true);
     this.background.width = this.width;
     this.background.height = this.height;
     this.background.filters = [this.lightEffectFilter];
