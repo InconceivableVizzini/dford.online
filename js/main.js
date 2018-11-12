@@ -6,6 +6,9 @@ import './views/experiments.js';
 import './views/pinhole.js';
 import './views/composition.js';
 import './views/visualizer.js';
+import './views/prim.js';
+import './views/lathe.js';
+import './views/emulation-environment.js';
 import './views/info.js';
 import './views/not-found.js';
 
@@ -27,6 +30,9 @@ router.routes([
   new Route({path:'/composition', tag:'composition'}),
   new Route({path:'/pinhole', tag:'pinhole'}),
   new Route({path:'/ecosystems-farms', tag:'ecosystem-farms'}),
+  new Route({path:'/prim', tag:'prim'}),
+  new Route({path:'/lathe', tag:'lathe'}),
+  new Route({path:'/ee', tag:'ee'}),
   new Route({path:'/info', tag: 'info'}),
   new NotFoundRoute({tag:'not-found'})
 ]);

@@ -11,7 +11,7 @@ riot.tag('primary-navigation',
   </div>
   `,
 
-  function (opts){
+  function (opts) {
     this.home = (e) => {
       router.navigateTo('/');
     };
@@ -23,4 +23,3 @@ riot.tag('primary-navigation',
     };
   }
 );
-	 

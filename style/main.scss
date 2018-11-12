@@ -78,6 +78,9 @@ nav {
   flex: none;
   height: 3rem;
 }
+nav.container {
+  margin: 0;
+}
 main {
   flex: 1;
 }
@@ -104,7 +107,7 @@ footer {
   }
   [data-is="experiments"] > div > div {
     flex-direction: column;
-    .tile.is-left-triplet { margin: 0 0 1.5rem; }
+    .tile.no-space-left { margin: 0 0 1.5rem; }
   }
 }
 @media screen and (min-width: 769px) {
@@ -113,6 +116,25 @@ footer {
   }
 }
 
+.content h1 {
+  @include plumber(
+    $font-size: uless(ms(3)),
+    $leading-bottom: 2,
+    $leading-top: 0
+  );
+}
+.content {
+  img {
+    @include plumber(
+      $leading-bottom: 1
+    );
+  }
+  p + img {
+    @include plumber(
+      $leading-top: 1
+    );
+  }
+}
 
 .is-primary-column {
   padding: 0 0 .75rem 0;
@@ -122,12 +144,12 @@ footer {
   transform: rotate(58deg);
 }
 
-.tile.is-left-triplet {
+.tile.no-space-left {
   margin: 0 1.5rem 1.5rem 0;
   padding: 0;
 }
 
-.tile.is-right-triplet {
+.tile.no-space-right {
   margin: 0 0 1.5rem 0;
   padding: 0;
 }
@@ -294,6 +316,13 @@ nav div.nav.primary-nav .nav-right a:last-child {
     $line-height: 1,
     $leading-bottom: 1
   );
+}
+
+/**
+* Code blocks
+*/
+pre code {
+  font-size: 1.5em;
 }
 
 /**

@@ -175,7 +175,7 @@ vec3 from = mix(down, left, modulation);
       if (!(window.AudioContext || window.webkitAudioContext)) {
 	this.refs.audvidsupport.style.display = 'block';
       }
-      
+     
       this.audio = new AudioPlayer();
       this.visual = new AudioVisualizer(this.refs.visualizer_element);
 
@@ -183,12 +183,15 @@ vec3 from = mix(down, left, modulation);
       window.addEventListener('resize', this.windowResized);
 
       this.clock = 0;
+      this.loaded = true;
       this.bustamove();
     });
     this.on('unmount', () => {
       window.removeEventListener('resize', this.windowResized);
       this.audio.audioContext.close();
       this.audio.source.disconnect();
+
+      this.loaded = false;
     });
     this.toggle_play_pause = (e) => {
       if (this.audio.state == 'playing') {
@@ -198,6 +201,7 @@ vec3 from = mix(down, left, modulation);
       }
     }
     this.bustamove = () => {
+      if (!this.loaded) return;
       requestAnimationFrame(this.bustamove.bind(this));
 
       this.audio.updateFreqTimeDomainData();
