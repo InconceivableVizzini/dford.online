@@ -6,7 +6,7 @@ riot.tag('experiments',
     <div class="tile">
       <div class="tile is-parent is-8 no-space-left">
       <article class="tile is-child experiment-hero ee-hero">
-        <img src="/assets/img/ee-alpha.png" alt="Prim" />
+        <img src="/assets/img/ee-alpha.png" alt="Emulation Environment" />
         <div class="content" onclick={ee}>
           <p>A reverse engineering tool.</p>
         </div>
